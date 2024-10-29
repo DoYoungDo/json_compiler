@@ -332,10 +332,10 @@ function parser(tokens: Token[]): AST {
     }
 
 
-    let ast :AST= {
-        type:NodeType.Program,
+    let ast: AST = {
+        type: NodeType.Program,
         body: [] as Node[]
-    }
+    } as AST
 
     while(current < tokens.length){
         ast.body.push(walk());
@@ -486,12 +486,13 @@ function transformer(ast: AST): any {
 }
 
 function parse(input: string): any {
+    console.log("-----------")
+    console.log("输入：")
     console.log(input);
     const tokens = tokenizer(input);
-    // console.log(tokens);
     const ast = parser(tokens);
-    // console.log(JSON.stringify(ast, null, "  "))
     const result = transformer(ast);
+    console.log("输出：")
     console.log(JSON.stringify(result, null, "  "));
 }
 
