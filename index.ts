@@ -69,6 +69,10 @@ interface Visitor {
     exit(node: Node, parent: Node): void;
 }
 
+/**
+ * 词法分析和标记器。
+ * 此阶段会将输入的文本解析成一个词法单元(token)序列
+ */
 function tokenizer(input: string): Token[] {
     let current = 0;
     let tokens: Token[] = [];
@@ -182,6 +186,10 @@ function tokenizer(input: string): Token[] {
     return tokens;
 }
 
+/**
+ * 解析器
+ * 此阶段会遍历词法单元(token)序列，生成语法树(AST)
+ */
 function parser(tokens: Token[]): AST {
     // input = input.trim();
 
@@ -344,6 +352,10 @@ function parser(tokens: Token[]): AST {
     return ast;
 }
 
+/**
+ * 定义一个方法，使用给定的语法树，和结点访问器
+ * 遍历语法树
+ */
 function traverser(node: Node, visitorManager: Map<NodeType, Visitor>): void {
     function traverserArray(array: Node[], parent: Node): void {
         array.forEach(ele => traverserNode(ele, parent))
@@ -382,6 +394,10 @@ function traverser(node: Node, visitorManager: Map<NodeType, Visitor>): void {
     traverserNode(node, {} as Node);
 }
 
+/**
+ * 转换器
+ * 此阶段为各节点定义各自的访问器，遍历给定的语法树，生成最终的结果
+ */
 function transformer(ast: AST): any {
     let result: any = undefined;
 
@@ -485,6 +501,9 @@ function transformer(ast: AST): any {
     return result;
 }
 
+/**
+ * 将所有的上述所有结点进行串连
+ */
 function parse(input: string): any {
     console.log("-----------")
     console.log("输入：")
