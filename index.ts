@@ -504,13 +504,24 @@ function transformer(ast: AST): any {
 /**
  * 将所有的上述所有结点进行串连
  */
-function parse(input: string): any {
-    console.log("-----------")
-    console.log("输入：")
-    console.log(input);
+export function parse(input: string): any {
     const tokens = tokenizer(input);
     const ast = parser(tokens);
     const result = transformer(ast);
+    return result;
+}
+
+export function stringify(value: any): string {
+    let result = "";
+    
+    return result;
+}
+
+function testParse(input: string) {
+    console.log("-----------")
+    console.log("输入：")
+    console.log(input);
+    const result = parse(input);
     console.log("输出：")
     console.log(JSON.stringify(result, null, "  "));
 }
@@ -568,38 +579,38 @@ null,
     const simpleJson = `{
 "key": "value"
 }`
-    parse(stdJson);
-    parse(stdJsonArr);
+    testParse(stdJson);
+    testParse(stdJsonArr);
   
     try {
-        parse(errJson);
+        testParse(errJson);
     } catch (error) {
         console.log(error)
     }
 
     try {
-        parse(errJson1);
+        testParse(errJson1);
     } catch (error) {
         console.log(error)
     }
 
     try {
-        parse(errJson2);
+        testParse(errJson2);
     } catch (error) {
         console.log(error)
     }
 
     try {
-        parse(errJson3);
+        testParse(errJson3);
     } catch (error) {
         console.log(error)
     }
 
     try {
-        parse(errJson4);
+        testParse(errJson4);
     } catch (error) {
         console.log(error)
     }
 
-    parse(simpleJson);
+    testParse(simpleJson);
 })();
